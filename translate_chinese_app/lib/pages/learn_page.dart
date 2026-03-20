@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../mock/hanzii_mock_data.dart';
+import 'character_study_page.dart';
+
 typedef OnTranslated = void Function({
   required String input,
   required String output,
@@ -22,6 +25,7 @@ class _LearnPageState extends State<LearnPage> {
   final TextEditingController _inputController = TextEditingController();
   bool _isConverting = false;
   String _output = '';
+  bool _showStudy = false;
 
   @override
   void dispose() {
@@ -52,6 +56,11 @@ class _LearnPageState extends State<LearnPage> {
     });
 
     widget.onTranslated(input: input, output: output);
+
+    // For UI preview: after converting, switch to the Hanzi study screen.
+    setState(() {
+      _showStudy = true;
+    });
   }
 
   String _fakeTranslateToChinese(String input) {
@@ -73,6 +82,13 @@ class _LearnPageState extends State<LearnPage> {
 
   @override
   Widget build(BuildContext context) {
+    if (_showStudy) {
+      return CharacterStudyPage(
+        onBack: () => setState(() => _showStudy = false),
+        items: hanziPhraseItems,
+      );
+    }
+
     const gradientStart = Color(0xFF8B4C44);
     const gradientEnd = Color(0xFF6F3A33);
 
@@ -108,7 +124,7 @@ class _LearnPageState extends State<LearnPage> {
                     ),
                   ),
                   IconButton(
-                    onPressed: () {},
+                onPressed: () => setState(() => _showStudy = true),
                     icon: const Icon(Icons.settings_outlined),
                     color: const Color(0xFF8B4C44),
                   ),
