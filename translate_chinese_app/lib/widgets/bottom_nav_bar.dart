@@ -47,8 +47,9 @@ class BottomNavBar extends StatelessWidget {
             final item = _items[index];
             final selected = index == selectedIndex;
 
-            final color =
-                selected ? AppColors.primary : AppColors.navLabelUnselected;
+            final color = selected
+                ? AppColors.primary
+                : AppColors.navLabelUnselected;
 
             return Expanded(
               child: InkWell(
@@ -64,10 +65,12 @@ class BottomNavBar extends StatelessWidget {
                       Text(
                         item.label,
                         style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                              color: color,
-                              fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
-                              letterSpacing: 0.3,
-                            ),
+                          color: color,
+                          fontWeight: selected
+                              ? FontWeight.w900
+                              : FontWeight.w500,
+                          letterSpacing: 0.3,
+                        ),
                       ),
                     ],
                   ),
@@ -80,4 +83,3 @@ class BottomNavBar extends StatelessWidget {
     );
   }
 }
-
