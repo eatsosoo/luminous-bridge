@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../mock/hanzii_mock_data.dart';
+import '../theme/app_colors.dart';
 import 'character_study_page.dart';
 
 typedef OnTranslated = void Function({
@@ -89,9 +90,6 @@ class _LearnPageState extends State<LearnPage> {
       );
     }
 
-    const gradientStart = Color(0xFF8B4C44);
-    const gradientEnd = Color(0xFF6F3A33);
-
     return SafeArea(
       bottom: false,
       child: Padding(
@@ -105,11 +103,11 @@ class _LearnPageState extends State<LearnPage> {
                   Container(
                     width: 36,
                     height: 36,
-                    decoration: BoxDecoration(
-                      color: const Color(0xFFFFE4E0),
+                    decoration: const BoxDecoration(
+                      color: AppColors.chipRose,
                       shape: BoxShape.circle,
                     ),
-                    child: const Icon(Icons.auto_awesome, color: Color(0xFF8B4C44)),
+                    child: const Icon(Icons.auto_awesome, color: AppColors.primary),
                   ),
                   const SizedBox(width: 10),
                   const Expanded(
@@ -118,7 +116,7 @@ class _LearnPageState extends State<LearnPage> {
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w700,
-                        color: Color(0xFF8B4C44),
+                        color: AppColors.primary,
                       ),
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -126,7 +124,7 @@ class _LearnPageState extends State<LearnPage> {
                   IconButton(
                 onPressed: () => setState(() => _showStudy = true),
                     icon: const Icon(Icons.settings_outlined),
-                    color: const Color(0xFF8B4C44),
+                    color: AppColors.primary,
                   ),
                 ],
               ),
@@ -137,13 +135,13 @@ class _LearnPageState extends State<LearnPage> {
                 child: Container(
                   padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
                   decoration: BoxDecoration(
-                    color: const Color(0xFFFFD0CB),
+                    color: AppColors.chipBlush,
                     borderRadius: BorderRadius.circular(999),
                   ),
                   child: const Text(
                     'Tiếng Việt ⇔ Hàn Tự',
                     style: TextStyle(
-                      color: Color(0xFF8B4C44),
+                      color: AppColors.primary,
                       fontSize: 14,
                       fontWeight: FontWeight.w700,
                     ),
@@ -156,7 +154,7 @@ class _LearnPageState extends State<LearnPage> {
               Container(
                 padding: const EdgeInsets.all(18),
                 decoration: BoxDecoration(
-                  color: Colors.white.withValues(alpha: 0.55),
+                  color: AppColors.surface.withValues(alpha: 0.55),
                   borderRadius: BorderRadius.circular(26),
                 ),
                 child: Column(
@@ -168,7 +166,7 @@ class _LearnPageState extends State<LearnPage> {
                         letterSpacing: 1.5,
                         fontSize: 12,
                         fontWeight: FontWeight.w800,
-                        color: Colors.brown.shade700,
+                        color: AppColors.textFieldLabel,
                       ),
                     ),
                     const SizedBox(height: 10),
@@ -179,7 +177,10 @@ class _LearnPageState extends State<LearnPage> {
                       style: const TextStyle(fontSize: 18),
                       decoration: InputDecoration(
                         hintText: 'Nhập văn bản tiếng Việt hoặc chữ Hàn...',
-                        hintStyle: const TextStyle(color: Colors.black26, fontSize: 18),
+                        hintStyle: const TextStyle(
+                          color: AppColors.textHint,
+                          fontSize: 18,
+                        ),
                         border: InputBorder.none,
                         isDense: true,
                       ),
@@ -190,23 +191,29 @@ class _LearnPageState extends State<LearnPage> {
                     ),
 
                     const SizedBox(height: 18),
-                    Divider(color: Colors.brown.withValues(alpha: 0.15), height: 1),
+                    Divider(
+                      color: AppColors.primary.withValues(alpha: 0.15),
+                      height: 1,
+                    ),
                     const SizedBox(height: 10),
                     Row(
                       children: [
                         Text(
                           '$_characterCount characters',
                           style: TextStyle(
-                            color: Colors.brown.withValues(alpha: 0.5),
+                            color: AppColors.primary.withValues(alpha: 0.5),
                             fontSize: 12,
                           ),
                         ),
                         const Spacer(),
-                        const Icon(Icons.mic_none, color: Color(0xFF8B4C44)),
+                        const Icon(Icons.mic_none, color: AppColors.primary),
                         const SizedBox(width: 14),
                         IconButton(
                           onPressed: _copyInput,
-                          icon: const Icon(Icons.copy_rounded, color: Color(0xFF8B4C44)),
+                          icon: const Icon(
+                            Icons.copy_rounded,
+                            color: AppColors.primary,
+                          ),
                         ),
                       ],
                     ),
@@ -224,7 +231,7 @@ class _LearnPageState extends State<LearnPage> {
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
                     gradient: const LinearGradient(
-                      colors: [gradientStart, gradientEnd],
+                      colors: [AppColors.primary, AppColors.primaryDark],
                     ),
                     borderRadius: BorderRadius.circular(999),
                   ),
@@ -233,13 +240,13 @@ class _LearnPageState extends State<LearnPage> {
                     children: [
                       Icon(
                         Icons.translate_rounded,
-                        color: Colors.white.withValues(alpha: 0.95),
+                        color: AppColors.surface.withValues(alpha: 0.95),
                       ),
                       const SizedBox(width: 10),
                       Text(
                         '转换 Convert Now',
                         style: const TextStyle(
-                          color: Colors.white,
+                          color: AppColors.surface,
                           fontWeight: FontWeight.w800,
                           fontSize: 18,
                         ),
@@ -286,7 +293,7 @@ class _LearnPageState extends State<LearnPage> {
                   padding: const EdgeInsets.only(top: 14),
                   child: Text(
                     _output,
-                    style: TextStyle(color: Colors.brown.shade700),
+                    style: const TextStyle(color: AppColors.textFieldLabel),
                   ),
                 ),
             ],
@@ -307,18 +314,18 @@ class _LearnPageState extends State<LearnPage> {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 18),
         decoration: BoxDecoration(
-          color: const Color(0xFFFFF0EF),
+          color: AppColors.tileCream,
           borderRadius: BorderRadius.circular(24),
         ),
         child: Row(
           children: [
-            Icon(icon, color: const Color(0xFF8B4C44)),
+            Icon(icon, color: AppColors.primary),
             const SizedBox(width: 10),
             Expanded(
               child: Text(
                 title,
                 style: TextStyle(
-                  color: Colors.brown.withValues(alpha: 0.9),
+                  color: AppColors.textFieldLabel.withValues(alpha: 0.9),
                   fontWeight: FontWeight.w700,
                   fontSize: 12.5,
                 ),

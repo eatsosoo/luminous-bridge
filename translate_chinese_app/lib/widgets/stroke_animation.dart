@@ -2,6 +2,8 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
+import '../theme/app_colors.dart';
+
 class StrokeByStrokeAnimation extends StatefulWidget {
   final List<List<Offset>> strokes;
   final Duration duration;
@@ -10,8 +12,8 @@ class StrokeByStrokeAnimation extends StatefulWidget {
   const StrokeByStrokeAnimation({
     super.key,
     required this.strokes,
-    this.duration = const Duration(milliseconds: 1400),
-    this.color = const Color(0xFF8B4C44),
+    this.duration = const Duration(milliseconds: 1000),
+    this.color = AppColors.primary,
   });
 
   @override

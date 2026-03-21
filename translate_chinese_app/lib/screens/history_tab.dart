@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../models/translation_entry.dart';
+import '../theme/app_colors.dart';
 
 class HistoryTab extends StatelessWidget {
   final List<TranslationEntry> history;
@@ -25,7 +26,7 @@ class HistoryTab extends StatelessWidget {
             ? const Center(
                 child: Text(
                   'No translations yet.',
-                  style: TextStyle(color: Colors.grey),
+                  style: TextStyle(color: AppColors.captionMuted),
                 ),
               )
             : ListView.separated(

@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:stroke_order_animator/stroke_order_animator.dart';
 
 import '../mock/hanzii_mock_data.dart';
+import '../theme/app_colors.dart';
 import 'stroke_animation.dart';
 
 class HanziDetailPopup extends StatelessWidget {
@@ -18,7 +19,7 @@ class HanziDetailPopup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.surface,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
       child: ConstrainedBox(
         constraints: const BoxConstraints(maxWidth: 380),
@@ -37,14 +38,14 @@ class HanziDetailPopup extends StatelessWidget {
                         fontSize: 46,
                         fontWeight: FontWeight.w900,
                         height: 1,
-                        color: Color(0xFF8B4C44),
+                        color: AppColors.primary,
                       ),
                     ),
                   ),
                   IconButton(
                     onPressed: onClose,
                     icon: const Icon(Icons.close_rounded),
-                    color: const Color(0xFF8B4C44),
+                    color: AppColors.primary,
                   ),
                 ],
               ),
@@ -52,7 +53,7 @@ class HanziDetailPopup extends StatelessWidget {
               Text(
                 item.meaning,
                 style: TextStyle(
-                  color: Colors.brown.shade700,
+                  color: AppColors.textFieldLabel,
                   fontSize: 14,
                   fontWeight: FontWeight.w700,
                 ),
@@ -61,7 +62,7 @@ class HanziDetailPopup extends StatelessWidget {
               Text(
                 'Pinyin: ${item.pinyin}',
                 style: TextStyle(
-                  color: Colors.brown.withValues(alpha: 0.85),
+                  color: AppColors.primary.withValues(alpha: 0.85),
                   fontSize: 13,
                   fontWeight: FontWeight.w600,
                 ),
@@ -75,7 +76,10 @@ class HanziDetailPopup extends StatelessWidget {
               const SizedBox(height: 10),
               const Text(
                 'Tap a character to view strokes.',
-                style: TextStyle(color: Colors.grey, fontSize: 12),
+                style: TextStyle(
+                  color: AppColors.captionMuted,
+                  fontSize: 12,
+                ),
               ),
               const SizedBox(height: 8),
               FilledButton(

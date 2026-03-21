@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../mock/hanzii_mock_data.dart';
+import '../theme/app_colors.dart';
 import '../widgets/hanzi_popup.dart';
 
 class CharacterStudyPage extends StatelessWidget {
@@ -25,11 +26,8 @@ class CharacterStudyPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const pinkCard = Color(0xFFFBEAE6);
-    const brown = Color(0xFF8B4C44);
-
     return Container(
-      color: Colors.white,
+      color: AppColors.surface,
       child: SafeArea(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(18, 10, 18, 24),
@@ -38,13 +36,13 @@ class CharacterStudyPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Container(
-                  color: Colors.white,
+                  color: AppColors.surface,
                   child: Row(
                     children: [
                       IconButton(
                         onPressed: onBack,
                         icon: const Icon(Icons.arrow_back_rounded),
-                        color: brown,
+                        color: AppColors.primary,
                       ),
                       const SizedBox(width: 2),
                       const Expanded(
@@ -53,7 +51,7 @@ class CharacterStudyPage extends StatelessWidget {
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w800,
-                            color: brown,
+                            color: AppColors.primary,
                           ),
                           overflow: TextOverflow.ellipsis,
                         ),
@@ -61,7 +59,7 @@ class CharacterStudyPage extends StatelessWidget {
                       IconButton(
                         onPressed: () {},
                         icon: const Icon(Icons.more_horiz_rounded),
-                        color: brown,
+                        color: AppColors.primary,
                       ),
                     ],
                   ),
@@ -75,7 +73,7 @@ class CharacterStudyPage extends StatelessWidget {
                     fontSize: 12,
                     letterSpacing: 2,
                     fontWeight: FontWeight.w800,
-                    color: Color(0xFFB0907F),
+                    color: AppColors.textSecondary,
                   ),
                 ),
                 const SizedBox(height: 6),
@@ -84,7 +82,7 @@ class CharacterStudyPage extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.w900,
-                    color: Color(0xFF3B2B27),
+                    color: AppColors.textPrimary,
                   ),
                 ),
 
@@ -107,7 +105,7 @@ class CharacterStudyPage extends StatelessWidget {
                                     style: const TextStyle(
                                       fontSize: 56,
                                       fontWeight: FontWeight.w900,
-                                      color: Color(0xFF3B2B27),
+                                      color: AppColors.textPrimary,
                                     ),
                                   ),
                                   const SizedBox(height: 6),
@@ -116,7 +114,9 @@ class CharacterStudyPage extends StatelessWidget {
                                     style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w700,
-                                      color: brown.withValues(alpha: 0.8),
+                                      color: AppColors.primary.withValues(
+                                        alpha: 0.8,
+                                      ),
                                     ),
                                   ),
                                 ],
@@ -128,15 +128,18 @@ class CharacterStudyPage extends StatelessWidget {
                       const SizedBox(height: 18),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
-                          Icon(Icons.play_arrow_rounded, color: brown),
-                          SizedBox(width: 8),
-                          Text(
+                        children: [
+                          const Icon(
+                            Icons.play_arrow_rounded,
+                            color: AppColors.primary,
+                          ),
+                          const SizedBox(width: 8),
+                          const Text(
                             'Full Breakdown',
                             style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w800,
-                              color: brown,
+                              color: AppColors.primary,
                             ),
                           ),
                         ],
@@ -154,7 +157,7 @@ class CharacterStudyPage extends StatelessWidget {
                         icon: Icons.auto_stories_rounded,
                         title: 'NEW WORDS',
                         big: '04',
-                        bg: pinkCard,
+                        bg: AppColors.cardPink,
                       ),
                     ),
                     const SizedBox(width: 14),
@@ -163,7 +166,7 @@ class CharacterStudyPage extends StatelessWidget {
                         icon: Icons.speed_rounded,
                         title: 'FLUENCY SCORE',
                         big: '82%',
-                        bg: pinkCard,
+                        bg: AppColors.cardPink,
                       ),
                     ),
                   ],
@@ -174,7 +177,7 @@ class CharacterStudyPage extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
-                    color: pinkCard,
+                    color: AppColors.cardPink,
                     borderRadius: BorderRadius.circular(18),
                   ),
                   child: Row(
@@ -183,7 +186,7 @@ class CharacterStudyPage extends StatelessWidget {
                         width: 40,
                         height: 40,
                         decoration: const BoxDecoration(
-                          color: Color(0xFFF2D8D0),
+                          color: AppColors.cardPinkAccent,
                           shape: BoxShape.circle,
                         ),
                         child: const Icon(Icons.lightbulb_outline_rounded),
@@ -198,7 +201,7 @@ class CharacterStudyPage extends StatelessWidget {
                               style: TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w900,
-                                color: Color(0xFF8B4C44),
+                                color: AppColors.primary,
                               ),
                             ),
                             SizedBox(height: 6),
@@ -207,7 +210,7 @@ class CharacterStudyPage extends StatelessWidget {
                               style: TextStyle(
                                 fontSize: 13,
                                 height: 1.4,
-                                color: Color(0xFF6B4A43),
+                                color: AppColors.textOnTint,
                               ),
                             ),
                           ],
@@ -232,7 +235,6 @@ class CharacterStudyPage extends StatelessWidget {
     required String big,
     required Color bg,
   }) {
-    const brown = Color(0xFF8B4C44);
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -242,12 +244,15 @@ class CharacterStudyPage extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(icon, color: brown.withValues(alpha: 0.9)),
+          Icon(
+            icon,
+            color: AppColors.primary.withValues(alpha: 0.9),
+          ),
           const SizedBox(height: 10),
           Text(
             title,
             style: TextStyle(
-              color: brown.withValues(alpha: 0.9),
+              color: AppColors.primary.withValues(alpha: 0.9),
               fontSize: 12,
               fontWeight: FontWeight.w900,
               letterSpacing: 1.1,
@@ -259,7 +264,7 @@ class CharacterStudyPage extends StatelessWidget {
             style: const TextStyle(
               fontSize: 26,
               fontWeight: FontWeight.w900,
-              color: Color(0xFF3B2B27),
+              color: AppColors.textPrimary,
             ),
           ),
         ],

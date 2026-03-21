@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../theme/app_colors.dart';
+
 typedef OnTranslated = void Function({
   required String input,
   required String output,
@@ -125,7 +127,9 @@ class _TextInputTabState extends State<TextInputTab> {
                         child: _output.isEmpty
                             ? const Text(
                                 'Your translated text will appear here.',
-                                style: TextStyle(color: Colors.grey),
+                                style: TextStyle(
+                                  color: AppColors.captionMuted,
+                                ),
                               )
                             : SelectableText(
                                 _output,

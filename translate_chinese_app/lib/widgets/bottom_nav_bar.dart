@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../theme/app_colors.dart';
+
 class BottomNavBar extends StatelessWidget {
   final int selectedIndex;
   final ValueChanged<int> onSelected;
@@ -17,19 +19,13 @@ class BottomNavBar extends StatelessWidget {
     (label: 'PROFILE', icon: Icons.person_outline),
   ];
 
-  static const _selectedGradient = LinearGradient(
-    colors: [
-      Color(0xFFB64A3B),
-      Color(0xFFFF6B5A),
-    ],
-  );
-
   Widget _buildIcon(IconData icon, bool selected) {
     if (!selected) {
-      return Icon(icon, color: Colors.black38);
+      return Icon(icon, color: AppColors.navIconUnselected);
     }
     return ShaderMask(
-      shaderCallback: (rect) => _selectedGradient.createShader(rect),
+      shaderCallback: (rect) =>
+          AppColors.accentLinearGradient.createShader(rect),
       blendMode: BlendMode.srcIn,
       child: Icon(icon, color: Colors.white, size: 26),
     );
@@ -43,7 +39,7 @@ class BottomNavBar extends StatelessWidget {
         margin: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
         padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 10),
         decoration: BoxDecoration(
-          color: Colors.white.withValues(alpha: 0.92),
+          color: AppColors.navBarSurface,
           borderRadius: const BorderRadius.all(Radius.circular(28)),
         ),
         child: Row(
@@ -51,7 +47,8 @@ class BottomNavBar extends StatelessWidget {
             final item = _items[index];
             final selected = index == selectedIndex;
 
-            final color = selected ? const Color(0xFF8B4C44) : Colors.black54;
+            final color =
+                selected ? AppColors.primary : AppColors.navLabelUnselected;
 
             return Expanded(
               child: InkWell(

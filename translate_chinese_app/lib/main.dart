@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'models/translation_entry.dart';
+import 'theme/app_colors.dart';
 import 'pages/library_page.dart';
 import 'pages/learn_page.dart';
 import 'pages/profile_page.dart';
@@ -16,12 +18,22 @@ class TranslateToChineseApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final baseTextTheme = ThemeData(
+      colorScheme: ColorScheme.fromSeed(seedColor: AppColors.seed),
+      useMaterial3: true,
+    ).textTheme;
+    final notoSansSc = GoogleFonts.notoSansSc();
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Luminous Bridge',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF8B4C44)),
+        colorScheme: ColorScheme.fromSeed(seedColor: AppColors.seed),
         useMaterial3: true,
+        textTheme: GoogleFonts.notoSansTextTheme(baseTextTheme),
+        fontFamily: GoogleFonts.notoSans().fontFamily,
+        fontFamilyFallback: [
+          if (notoSansSc.fontFamily != null) notoSansSc.fontFamily!,
+        ],
       ),
       home: const TranslateHome(),
     );
@@ -65,7 +77,7 @@ class _TranslateHomeState extends State<TranslateHome> {
     ];
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF7E8E5),
+      backgroundColor: AppColors.scaffoldBackground,
       body: pages[_selectedIndex],
       bottomNavigationBar: BottomNavBar(
         selectedIndex: _selectedIndex,
