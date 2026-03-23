@@ -59,5 +59,8 @@ abstract final class AppColors {
   static const Color navIconUnselected = Color(0x61000000); // ~black38
   static const Color navLabelUnselected = Color(0x8A000000); // ~black54
 
+  static const Color streakBackground = Color.fromARGB(255, 239, 255, 239);
+  static const Color streakText = Color(0xFF5D4037);
+
   static Color get navBarSurface => surface.withValues(alpha: 0.92);
 }
