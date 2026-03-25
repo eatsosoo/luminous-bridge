@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:translate_chinese_app/models/translate_model.dart';
+import 'package:translate_chinese_app/services/translate_service.dart';
 import 'package:translate_chinese_app/widgets/top_bar.dart';
 
 import '../mock/hanzii_mock_data.dart';
@@ -20,8 +22,9 @@ class LearnPage extends StatefulWidget {
 
 class _LearnPageState extends State<LearnPage> {
   final TextEditingController _inputController = TextEditingController();
+  final TranslateService _translateService = TranslateService();
   bool _isConverting = false;
-  String _output = '';
+  // String _output = '';
   bool _showStudy = false;
 
   @override
@@ -34,38 +37,28 @@ class _LearnPageState extends State<LearnPage> {
 
   Future<void> _convert() async {
     final input = _inputController.text.trim();
-    if (input.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please enter some text first.')),
-      );
-      return;
-    }
+
+    if (input.isEmpty) return;
 
     setState(() => _isConverting = true);
 
-    // Placeholder conversion. Replace with a real Stitch/translation call later.
-    await Future.delayed(const Duration(milliseconds: 450));
-    final output = _fakeTranslateToChinese(input);
+    try {
+      // final result = await _translateService.translate(input);
 
-    setState(() {
-      _isConverting = false;
-      _output = output;
-    });
+      // if (!mounted) return;
 
-    widget.onTranslated(input: input, output: output);
+      setState(() => _isConverting = false);
 
-    // For UI preview: after converting, switch to the Hanzi study screen.
-    setState(() {
-      _showStudy = true;
-    });
-  }
+      final mockData = TranslateResponse.fromJson(mockTranslateJson);
 
-  String _fakeTranslateToChinese(String input) {
-    final normalized = input.replaceAll(RegExp(r'\s+'), ' ').trim();
-    if (RegExp(r'^[\x00-\x7F]*$').hasMatch(normalized)) {
-      return 'CN: $normalized';
+      // 🚀 Navigate + truyền data
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (_) => CharacterStudyPage(data: mockData)),
+      );
+    } catch (e) {
+      setState(() => _isConverting = false);
     }
-    return 'CN (placeholder): $normalized';
   }
 
   void _copyInput() {
@@ -79,12 +72,12 @@ class _LearnPageState extends State<LearnPage> {
 
   @override
   Widget build(BuildContext context) {
-    if (_showStudy) {
-      return CharacterStudyPage(
-        onBack: () => setState(() => _showStudy = false),
-        items: hanziPhraseItems,
-      );
-    }
+    // if (_showStudy) {
+    //   return CharacterStudyPage(
+    //     onBack: () => setState(() => _showStudy = false),
+    //     items: hanziPhraseItems,
+    //   );
+    // }
 
     return SafeArea(
       bottom: false,
@@ -285,14 +278,14 @@ class _LearnPageState extends State<LearnPage> {
               ),
 
               // Optional conversion result (not shown in your screenshot).
-              if (_output.isNotEmpty)
-                Padding(
-                  padding: const EdgeInsets.only(top: 14),
-                  child: Text(
-                    _output,
-                    style: const TextStyle(color: AppColors.textFieldLabel),
-                  ),
-                ),
+              // if (_output.isNotEmpty)
+              //   Padding(
+              //     padding: const EdgeInsets.only(top: 14),
+              //     child: Text(
+              //       _output,
+              //       style: const TextStyle(color: AppColors.textFieldLabel),
+              //     ),
+              //   ),
             ],
           );
         },

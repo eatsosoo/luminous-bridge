@@ -141,3 +141,27 @@ const hanziPhraseItems = <CharacterStudyItem>[
   ),
 ];
 
+const mockTranslateJson = {
+  "formatted": "今天我去学校学习中文。",
+  "sentences": [
+    {
+      "sentence": "今天我去学校学习中文。",
+      "sentence_pinyin": "jīn tiān wǒ qù xué xiào xué xí zhōng wén。",
+      "meaning": "Hôm nay tôi đi học tiếng Trung ở trường.",
+      "tokens": [
+        {"text": "今天", "type": "word", "pinyin": "jīn tiān"},
+        {"text": "我", "type": "word", "pinyin": "wǒ"},
+        {"text": "去", "type": "word", "pinyin": "qù"},
+        {"text": "学校", "type": "word", "pinyin": "xué xiào"},
+        {"text": "学习", "type": "word", "pinyin": "xué xí"},
+        {"text": "中文", "type": "word", "pinyin": "zhōng wén"},
+        {"text": "。", "type": "punctuation"}
+      ]
+    }
+  ],
+  "stats": {
+    "total_sentences": 1,
+    "total_lines": 1,
+    "total_tokens": 7
+  }
+};
