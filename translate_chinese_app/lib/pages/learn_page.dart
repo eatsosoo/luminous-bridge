@@ -128,7 +128,7 @@ class _LearnPageState extends State<LearnPage> {
                   margin: const EdgeInsets.symmetric(horizontal: 18),
                   decoration: BoxDecoration(
                     color: AppColors.fieldInput,
-                    boxShadow: const [AppColors.shadowFieldInput],
+                    boxShadow: [AppColors.shadowFieldInput],
                     borderRadius: BorderRadius.circular(26),
                   ),
                   child: Column(
@@ -182,15 +182,16 @@ class _LearnPageState extends State<LearnPage> {
                             style: TextStyle(
                               color: AppColors.primary.withValues(alpha: 0.5),
                               fontSize: 12,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
                           const Spacer(),
-                          const Icon(Icons.mic_none, color: AppColors.primary),
+                          const Icon(Icons.mic, color: AppColors.primary),
                           const SizedBox(width: 14),
                           IconButton(
                             onPressed: _copyInput,
                             icon: const Icon(
-                              Icons.copy_rounded,
+                              Icons.copy,
                               color: AppColors.primary,
                             ),
                           ),

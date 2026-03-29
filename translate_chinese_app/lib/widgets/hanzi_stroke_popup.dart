@@ -39,7 +39,7 @@ class _HanziStrokePopupState extends State<HanziStrokePopup>
       StrokeOrder(data),
       this,
       strokeAnimationSpeed: 2,
-      strokeColor: Colors.black,
+      strokeColor: Colors.black87,
     );
 
     setState(() {});
@@ -213,8 +213,12 @@ class _HanziGridPainter extends CustomPainter {
     final w = size.width;
     final h = size.height;
 
+    final bgPaint = Paint()
+      ..color = AppColors.cardPink
+      ..strokeWidth = 1;
+
     // 🔲 khung ngoài
-    canvas.drawRect(Rect.fromLTWH(0, 0, w, h), paint);
+    canvas.drawRect(Rect.fromLTWH(0, 0, w, h), bgPaint);
 
     // ➕ dọc
     canvas.drawLine(Offset(w / 2, 0), Offset(w / 2, h), paint);

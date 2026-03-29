@@ -30,10 +30,11 @@ abstract final class AppColors {
   static const Color fieldInput = Color(0xFFFFF0EF);
 
   /// Box shadow lấy từ Figma: X=0, Y=12, Blur=32, color=#8C4D49, alpha=8%.
-  static const BoxShadow shadowFieldInput = BoxShadow(
-    offset: Offset(0, 12),
-    blurRadius: 32,
-    color: Color(0xFFFFF0EF),
+  static  BoxShadow shadowFieldInput = BoxShadow(
+    color: Color(0x00000000).withValues(alpha: 0.1), // Màu của bóng và độ mờ
+    spreadRadius: 2, // Bán kính bóng lan ra từ viền (mặc định 0)
+    blurRadius: 10, // Bán kính làm mờ bóng (càng lớn càng nhòe)
+    offset: Offset(0, 4), // Hướng đổ bóng (ngang, dọc) - xuống dưới 4px
   );
 
   // --- Typography (brown-tinted neutrals) ---
@@ -58,6 +59,7 @@ abstract final class AppColors {
   // --- Nav & icons (fixed neutrals; tweak if you want a warmer chrome) ---
   static const Color navIconUnselected = Color(0x61000000); // ~black38
   static const Color navLabelUnselected = Color(0x8A000000); // ~black54
+  static const Color fieldIcon = Color(0x006D5B59);
 
   static const Color streakBackground = Color.fromARGB(255, 239, 255, 239);
   static const Color streakText = Color(0xFF5D4037);
