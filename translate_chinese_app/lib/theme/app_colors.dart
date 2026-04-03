@@ -29,7 +29,8 @@ abstract final class AppColors {
   /// Field input
   static const Color fieldInput = Color(0xFFFFF0EF);
 
-  /// Box shadow lấy từ Figma: X=0, Y=12, Blur=32, color=#8C4D49, alpha=8%.
+  static Color titleBar = Color(0x008C4D49).withValues(alpha: 0.05);
+
   static  BoxShadow shadowFieldInput = BoxShadow(
     color: Color(0x00000000).withValues(alpha: 0.1), // Màu của bóng và độ mờ
     spreadRadius: 2, // Bán kính bóng lan ra từ viền (mặc định 0)

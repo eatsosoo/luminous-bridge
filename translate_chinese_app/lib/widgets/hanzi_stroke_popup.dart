@@ -44,29 +44,7 @@ class _HanziStrokePopupState extends State<HanziStrokePopup>
 
     setState(() {});
 
-    _controller!.startAnimation(); 
-
-
-    // Future<void> autoLoop() async {
-    //   // Thêm một khoảng nghỉ nhỏ ban đầu trước khi bắt đầu vòng lặp đầu tiên
-    //   await Future.delayed(const Duration(milliseconds: 500));
-
-    //   while (mounted && _controller != null) {
-    //     _controller!.reset();
-        
-    //     // Chạy animation và await cho đến khi nó thực sự kết thúc
-    //     // startAnimation() trả về một TickerFuture
-    //     _controller!.startAnimation();
-
-    //     // Chờ một chút sau khi vẽ xong để người dùng kịp nhìn (ví dụ 1.5 giây)
-    //     await Future.delayed(const Duration(milliseconds: 2000));
-        
-    //     if (!mounted) break;
-    //   }
-    // }
-
-    // // Kích hoạt vòng lặp
-    // autoLoop();
+    _controller!.startAnimation();
   }
 
   void _changeChar(int index) {
@@ -75,6 +53,13 @@ class _HanziStrokePopupState extends State<HanziStrokePopup>
       _future = _load();
     });
   }
+
+  void _rewrite() {
+    _controller!.reset();
+    _controller!.startAnimation();
+  }
+
+  void _startAudio() {}
 
   @override
   void dispose() {
@@ -90,102 +75,136 @@ class _HanziStrokePopupState extends State<HanziStrokePopup>
     return Dialog(
       backgroundColor: Colors.white,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(4),
-          ),
-          child: FutureBuilder<void>(
-            future: _future,
-            builder: (context, snapshot) {
-              return Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  // 🔥 TOP: nhiều ký tự
-                  Wrap(
-                    alignment: WrapAlignment.center,
-                    spacing: 2,
-                    children: List.generate(chars.length, (index) {
-                      final isActive = index == _currentIndex;
+      child: Container(
+        width: 240,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(16),
+        ),
+        child: FutureBuilder<void>(
+          future: _future,
+          builder: (context, snapshot) {
+            return Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // 🔥 TOP: nhiều ký tự
+                Container(
+                  decoration: BoxDecoration(color: AppColors.titleBar),
+                  padding: EdgeInsetsGeometry.all(16),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        children: [
+                          Wrap(
+                            alignment: WrapAlignment.start,
+                            spacing: 2,
+                            children: List.generate(chars.length, (index) {
+                              final isActive = index == _currentIndex;
 
-                      return GestureDetector(
-                        onTap: () => _changeChar(index),
-                        child: AnimatedContainer(
-                          duration: const Duration(milliseconds: 200),
-                          padding: const EdgeInsets.symmetric(
-                            vertical: 0,
-                            horizontal: 8,
+                              return GestureDetector(
+                                onTap: () => _changeChar(index),
+                                child: AnimatedContainer(
+                                  duration: const Duration(milliseconds: 200),
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 0,
+                                    horizontal: 8,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: isActive
+                                        ? Colors.orange.withOpacity(0.2)
+                                        : Colors.transparent,
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  child: Text(
+                                    chars[index],
+                                    style: TextStyle(
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.bold,
+                                      color: isActive
+                                          ? Colors.orange
+                                          : Colors.black,
+                                    ),
+                                  ),
+                                ),
+                              );
+                            }),
                           ),
-                          decoration: BoxDecoration(
-                            color: isActive
-                                ? Colors.orange.withOpacity(0.2)
-                                : Colors.transparent,
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Text(
-                            chars[index],
-                            style: TextStyle(
-                              fontSize: 32,
-                              fontWeight: FontWeight.bold,
-                              color: isActive ? Colors.orange : Colors.black,
+                          const SizedBox(height: 4),
+                          // 🔤 Pinyin
+                          if (widget.pinyin != null)
+                            Text(
+                              widget.pinyin!,
+                              style: const TextStyle(color: Colors.grey),
                             ),
-                          ),
+                        ],
+                      ),
+
+                      DecoratedBox(
+                        decoration: BoxDecoration(
+                          color: AppColors.cardPink,
+                          borderRadius: BorderRadius.circular(50),
                         ),
-                      );
-                    }),
-                  ),
-
-                  const SizedBox(height: 8),
-
-                  // 🔤 Pinyin
-                  if (widget.pinyin != null)
-                    Text(
-                      widget.pinyin!,
-                      style: const TextStyle(color: Colors.grey),
-                    ),
-
-                  const SizedBox(height: 16),
-
-                  // ✍️ Animation
-                  if (_controller == null)
-                    const SizedBox(
-                      height: 200,
-                      child: Center(child: CircularProgressIndicator()),
-                    )
-                  else
-                    SizedBox(
-                      width: 240,
-                      height: 240,
-                      child: HanziGrid(
-                        child: StrokeOrderAnimator(
-                          _controller!,
-                          size: const Size(240, 240),
+                        child: IconButton(
+                          onPressed: () => _startAudio(),
+                          icon: Icon(Icons.volume_up, size: 16),
                         ),
                       ),
+                    ],
+                  ),
+                ),
+
+                const SizedBox(height: 8),
+
+                Padding(
+                  padding: EdgeInsetsGeometry.symmetric(horizontal: 16),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Stroke Order'.toUpperCase(),
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.textSecondary,
+                          fontSize: 12,
+                        ),
+                      ),
+                      IconButton(
+                        onPressed: () => _rewrite(),
+                        icon: Icon(
+                          Icons.replay_outlined,
+                          color: AppColors.textSecondary,
+                          size: 16,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                const SizedBox(height: 4),
+
+                // ✍️ Animation
+                if (_controller == null)
+                  const SizedBox(
+                    height: 200,
+                    child: Center(child: CircularProgressIndicator()),
+                  )
+                else
+                  SizedBox(
+                    width: 240,
+                    height: 240,
+                    child: HanziGrid(
+                      child: StrokeOrderAnimator(
+                        _controller!,
+                        size: const Size(240, 240),
+                      ),
                     ),
+                  ),
 
-                  // const SizedBox(height: 12),
-
-                  // 🎮 Controls
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  //   children: [
-                  //     IconButton(
-                  //       icon: const Icon(Icons.play_arrow),
-                  //       onPressed: _controller?.startAnimation,
-                  //     ),
-                  //     IconButton(
-                  //       icon: const Icon(Icons.refresh),
-                  //       onPressed: _controller?.reset,
-                  //     ),
-                  //   ],
-                  // ),
-                ],
-              );
-            },
-          ),
+                const SizedBox(height: 16),
+              ],
+            );
+          },
         ),
       ),
     );
